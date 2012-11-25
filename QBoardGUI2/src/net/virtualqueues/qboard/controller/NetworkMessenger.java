@@ -33,7 +33,7 @@ public class NetworkMessenger implements Runnable, Messenger {
 		return instance;
 	}
 	
-	public void greetings(){
+	public void sendGreetings(){
 		InetSocketAddress localSocketAddress = new InetSocketAddress(localhost, 2342);
 
 		OutputStream os;
@@ -47,7 +47,7 @@ public class NetworkMessenger implements Runnable, Messenger {
 	}
 
 	public void run() {
-		greetings();
+		sendGreetings();
 		
 	}
 	

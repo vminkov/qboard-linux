@@ -1,7 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>QBoardGUI</groupId>
-  <artifactId>QBoardGUI</artifactId>
+  <groupId>QBoardGUI2</groupId>
+  <artifactId>QBoardGUI2</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <build>
     <sourceDirectory>src</sourceDirectory>
@@ -16,4 +18,34 @@
       </plugin>
     </plugins>
   </build>
+  <repositories>
+    <repository>
+      <id>mvn repo</id>
+      <url>http://repository.jboss.com/maven2/</url>
+    </repository>
+    <repository>
+		<id>java.net2</id>
+		<name>Repository hosting the jee6 artifacts</name>
+		<url>http://download.java.net/maven/2</url>
+	</repository>
+    <repository>
+		<id>mvn repo at maven.org</id>
+		<name>Repository hosting the jee6 artifacts</name>
+		<url>http://repo1.maven.org/maven2</url>
+	</repository>
+ </repositories>
+ 
+  <dependencies>
+      <dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-jaxrs</artifactId>
+			<version>1.9.6</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-bundle</artifactId>
+			<version>1.14</version>
+		</dependency>
+      
+  </dependencies>
 </project>

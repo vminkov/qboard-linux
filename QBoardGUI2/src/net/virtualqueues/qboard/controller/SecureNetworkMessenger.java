@@ -17,6 +17,9 @@ public class SecureNetworkMessenger implements Runnable, Messenger {
 	private static final InetAddress localhost = InetAddress.getLoopbackAddress(); 
 	private SSLSocket socket;
 	private static final Messenger instance = new SecureNetworkMessenger();
+	private OutputStream outputstream;
+	private OutputStreamWriter outputstreamwriter;
+	private BufferedWriter bufferedwriter;
 	
 	private SecureNetworkMessenger() {
 		try {
@@ -32,37 +35,33 @@ public class SecureNetworkMessenger implements Runnable, Messenger {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	@Override
-	public void run(){
-		this.greetings();
-	}
-	@Override
-	public void greetings(){
 		InetSocketAddress localSocketAddress = new InetSocketAddress(localhost, 2343);
         try {
 			socket.connect(localSocketAddress);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
+		try {
+			outputstream = socket.getOutputStream();
+	        
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		outputstreamwriter = new OutputStreamWriter(outputstream);
+
+        bufferedwriter = new BufferedWriter(outputstreamwriter);
+	}
+	@Override
+	public void run(){
+		this.sendGreetings();
+	}
+	@Override
+	public void sendGreetings(){
 		InputStream inputstream = System.in;
         InputStreamReader inputstreamreader = new InputStreamReader(inputstream);
         BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
-
-        OutputStream outputstream = null;
-        BufferedWriter bufferedwriter = null;
-		try {
-			outputstream = socket.getOutputStream();
-			OutputStreamWriter outputstreamwriter = new OutputStreamWriter(outputstream);
-	        bufferedwriter = new BufferedWriter(outputstreamwriter);
-	        
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        
+	
 		String string = null;
         try {
 			while ((string = bufferedreader.readLine()) != null) {
@@ -70,10 +69,13 @@ public class SecureNetworkMessenger implements Runnable, Messenger {
 			    bufferedwriter.flush();
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	private void sendMessages(){
+		
+	}
+	
 	public static Messenger getSecureInstance(){
 		return instance;
 	}

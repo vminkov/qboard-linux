@@ -25,6 +25,8 @@ public class MenuItem extends MenuObject {
 	}
 	
 	public List<MenuObject> open(){
+		// send event that the menu is opened?
+		
 		return submenu;
 	}
 }

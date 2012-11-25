@@ -22,6 +22,10 @@ import net.virtualqueues.qboard.model.fields.MenuTextInput;
 
 public class MainMenuUI extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private BufferedImage image;
 	
 	/**
@@ -86,7 +90,7 @@ public class MainMenuUI extends JPanel {
 	public void load(List<MenuObject> options){
 		this.removeAll();
 		
-		addTitle();
+		//addTitle();
 
 
 		for(MenuObject mo : options){
