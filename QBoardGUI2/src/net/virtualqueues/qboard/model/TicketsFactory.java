@@ -7,15 +7,15 @@ public class TicketsFactory {
 	/*
 	 * Singleton
 	 */
-	private TicketsFactory instance = new TicketsFactory();
+	private final static TicketsFactory instance = new TicketsFactory();
 	private List<TicketType> types = new LinkedList<TicketType>();
 	private final int DEFAULT_TICKET_TYPE = 0;
 	private TicketsFactory(){
 				
 	}
 	
-	public TicketsFactory getInstance(){
-		return this.instance;
+	public static TicketsFactory getInstance(){
+		return instance;
 	}
 	
 	public boolean addTicketType(String reason_arg, int duration_arg, int type_arg){

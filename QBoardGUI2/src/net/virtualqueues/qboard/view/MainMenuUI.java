@@ -35,9 +35,8 @@ public class MainMenuUI extends JPanel {
 		//this.setBackground(new Color(0,0,0,0));
 		setLayout(new GridLayout(0, 1, 10, 10));
 		this.image = image; 
-		System.out.println(image.getWidth() + " : " + image.getHeight());
 		addTitle();
-		
+		//============BEGIN MANUALLY ADDING MENU OPTIONS====================//
 		List<MenuItem> options = new ArrayList<MenuItem>();
 		for(int i = 0; i < 5; i++){
 			MenuItem newMI = new MenuItem("label"+i);
@@ -45,6 +44,8 @@ public class MainMenuUI extends JPanel {
 			newMI.addTextInput("type here"+i);
 			options.add(newMI);
 		}
+		//============END   MANUALLY ADDING MENU OPTIONS====================//
+
 		fillButtons(options);
 	}
 

@@ -14,8 +14,17 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
+/**
+ * This is the main 'panel' - what is inside the window frame
+ * @author Vicho
+ *
+ */
 public class MainPanel extends JPanel {
 
+	/**
+	 * default serialversionuid... I don't know what this is used for
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final String imgPath = GuiConsts.backgroundPath;
 	private BufferedImage image;
 	
@@ -27,9 +36,13 @@ public class MainPanel extends JPanel {
 		this.setLayout(new GridLayout(1, 3 , 0, 0));
 		this.setLayout(new BorderLayout());
 		addBackgroundImage();
-		MainMenuUI centralPanel = new MainMenuUI(this.image.getSubimage(GuiConsts.LEFT_GAP, GuiConsts.TOP_GAP, 
+		
+		//cuts the central peace of the background image
+		BufferedImage centralPanelBackground = this.image.getSubimage(GuiConsts.LEFT_GAP, GuiConsts.TOP_GAP, 
 				this.image.getWidth() - GuiConsts.LEFT_GAP - GuiConsts.RIGHT_GAP, 
-				image.getHeight() - GuiConsts.TOP_GAP - GuiConsts.BOTTOM_GAP));
+				image.getHeight() - GuiConsts.TOP_GAP - GuiConsts.BOTTOM_GAP);
+		
+		MainMenuUI centralPanel = new MainMenuUI(centralPanelBackground);
 
 		//TestPanelSwing centralPanel = new TestPanelSwing();
 		Container top = new JLabel("");

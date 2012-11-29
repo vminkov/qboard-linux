@@ -4,12 +4,17 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 
-public class QBMain extends JFrame {
+public class QBGUI extends JFrame {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Create the application GUI.
 	 */
-	public QBMain() {
+	public QBGUI() {
 		initialize();
 	}
 
