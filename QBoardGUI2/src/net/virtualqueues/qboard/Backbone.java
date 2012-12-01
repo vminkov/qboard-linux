@@ -1,7 +1,8 @@
 package net.virtualqueues.qboard;
 
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import net.virtualqueues.qboard.controller.SecureNetworkMessenger;
 import net.virtualqueues.qboard.controller.TasksManager;
@@ -9,20 +10,20 @@ import net.virtualqueues.qboard.view.QBGUI;
 
 public class Backbone {
 	/**
-	 * Launch the application. Concurrency is probably broken.
-	 * TODO Revise concurrency. Events?
+	 * Launch the application.
+	 * TODO Revise concurrency. Events? p.s. event driven mvc SUCKS!
 	 */
 	public static void main(String[] args) {
-		ExecutorService executor = Executors.newCachedThreadPool();
+		ScheduledExecutorService executor = Executors.newScheduledThreadPool(4);
         System.setProperty("java.net.useSystemProxies", "false");	
         SecureMockServer sms;
-		TasksManager tm;
+		TasksManager tm = TasksManager.getInstance();
 		
-		executor.execute(tm = TasksManager.getInstance() );
+		executor.scheduleAtFixedRate(tm, 0, 200, TimeUnit.MILLISECONDS);
 		System.out.println("task manager running");	
 				
-		executor.execute(sms = new SecureMockServer());
-        System.out.println("mock server running");
+		//executor.execute(sms = new SecureMockServer());
+        //System.out.println("mock server running");
         
         
         //we want dependency injection here

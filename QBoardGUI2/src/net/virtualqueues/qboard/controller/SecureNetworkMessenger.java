@@ -12,7 +12,11 @@ import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
@@ -26,7 +30,8 @@ public class SecureNetworkMessenger implements Runnable, Messenger {
 	private OutputStream outputstream;
 	private OutputStreamWriter outputstreamwriter;
 	private BufferedWriter bufferedwriter;
-	
+	private static final ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+
 	//TODO dependency injection
 	private static final LinkedBlockingQueue<NetworkMessage> incomingMessagesQueue = MessageQueue.getInstance();// = new PriorityBlockingQueue<NetworkMessage>();
 	private InputStream incoming = null;
@@ -34,9 +39,13 @@ public class SecureNetworkMessenger implements Runnable, Messenger {
 	private ObjectOutputStream outgoingSerial;	
 	
 	private SecureNetworkMessenger() {
+		
+	}
+	@Override
+	public void run(){
 		try {
 			SSLSocketFactory sslsocketfactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
-			System.out.println("client starting at port " + PORT);
+			System.out.println("QBoard starting at port " + PORT);
 			socket = (SSLSocket) sslsocketfactory.createSocket();
 
 			//hack, @see Backbone
@@ -70,13 +79,17 @@ public class SecureNetworkMessenger implements Runnable, Messenger {
 			e.printStackTrace();
 			return;
 		}
-	}
-	@Override
-	public void run(){
-		//this.sendGreetings();
+		this.sendGreetings();
+		
 		System.out.println("waiting for messages...");
-		this.waitForMessages();//executes this through its lifetime
-		System.out.println("end of thread");
+		executor.scheduleAtFixedRate(new Runnable(){
+			@Override
+			public void run() {
+				waitForMessages();
+			}
+			
+		}, 0, 50, TimeUnit.MILLISECONDS);//executes this through its lifetime
+		System.out.println("end of main thread");
 	}
 	@Override
 	public void sendGreetings(){
@@ -97,25 +110,24 @@ public class SecureNetworkMessenger implements Runnable, Messenger {
 	
 	private void waitForMessages(){
 		Object message = null;
-        while(true){	
-	        try {
-				if ((message = incomingSerial.readObject()) != null) {
-					NetworkMessage incomingMessage = (NetworkMessage) message;
-					if(incomingMessage == null || incomingMessage.data == null ||
-							incomingMessage.type == null || incomingMessage.type == ""){
-						continue;
-					}
-					try {
-						incomingMessagesQueue.put( incomingMessage );
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+        try {
+			if ((message = incomingSerial.readObject()) != null) {
+				NetworkMessage incomingMessage = (NetworkMessage) message;
+				if(incomingMessage == null || incomingMessage.data == null ||
+						incomingMessage.type == null || incomingMessage.type == ""){
+					return;
 				}
-			} catch (IOException | ClassNotFoundException e) {
-				e.printStackTrace();
+				try {
+					incomingMessagesQueue.put( incomingMessage );
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
-        }
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
 	}
 	
 	public boolean sendMessage(String msgType, Serializable data){

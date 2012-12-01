@@ -37,13 +37,11 @@ public class TasksManager implements Runnable {
 
 	@Override
 	public void run() {
-		while(true){
-			if(!messageQueue.isEmpty()){
-				try {
-					parseMessageTask(messageQueue.take());
-				} catch (InterruptedException | MessageParsingException e) {
-					e.printStackTrace();
-				}
+		if(!messageQueue.isEmpty()){
+			try {
+				parseMessageTask(messageQueue.take());
+			} catch (InterruptedException | MessageParsingException e) {
+				e.printStackTrace();
 			}
 		}
 	}
