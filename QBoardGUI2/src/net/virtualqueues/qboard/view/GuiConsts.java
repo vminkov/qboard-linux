@@ -7,6 +7,6 @@ public class GuiConsts {
 	public static int TOP_GAP = 60;
 	public static int BOTTOM_GAP = 100;
 	public static int RIGHT_GAP = 400;
-	public static String backgroundPath = "C:/background.png";
+	public static String backgroundPath = "./res/background.png";
 	
 }

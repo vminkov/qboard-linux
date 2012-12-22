@@ -20,8 +20,8 @@ public class ButtonUI extends JButton {
 	 */
 	private static final long serialVersionUID = 1L;
 	private BufferedImage image;
-	private static final String imagePath = "C:/button-new.png";
-	private static final String pressedImgPath = "C:/button-new_pressed.png";
+	private static final String imagePath = "./res/button-new.png";
+	private static final String pressedImgPath = "./res/button-new_pressed.png";
 	
 	public ButtonUI(String name) {
 		super(name);
