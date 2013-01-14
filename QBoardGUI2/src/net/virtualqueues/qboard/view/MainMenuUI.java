@@ -45,7 +45,7 @@ public class MainMenuUI extends JPanel {
 			options.add(newMI);
 		}
 		//============END   MANUALLY ADDING MENU OPTIONS====================//
-
+		
 		fillButtons(options);
 	}
 

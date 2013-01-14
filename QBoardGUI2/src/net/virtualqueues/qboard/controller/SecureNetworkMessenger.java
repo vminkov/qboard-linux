@@ -20,6 +20,8 @@ import java.util.concurrent.TimeUnit;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
+import net.virtualqueues.controller.Messenger;
+import net.virtualqueues.controller.NetworkMessage;
 import net.virtualqueues.qboard.MessageQueue;
 
 public class SecureNetworkMessenger implements Runnable, Messenger {
@@ -113,8 +115,8 @@ public class SecureNetworkMessenger implements Runnable, Messenger {
         try {
 			if ((message = incomingSerial.readObject()) != null) {
 				NetworkMessage incomingMessage = (NetworkMessage) message;
-				if(incomingMessage == null || incomingMessage.data == null ||
-						incomingMessage.type == null || incomingMessage.type == ""){
+				if(incomingMessage == null || incomingMessage.getData() == null ||
+						incomingMessage.getType() == null || incomingMessage.getType() == ""){
 					return;
 				}
 				try {
@@ -140,6 +142,10 @@ public class SecureNetworkMessenger implements Runnable, Messenger {
 		}
 		return true;
 	}
+	public static Messenger getInstance(){
+		return getSecureInstance();
+	}
+
 	public static Messenger getSecureInstance(){
 		return instance;
 	}

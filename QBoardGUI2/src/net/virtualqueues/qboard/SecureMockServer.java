@@ -16,9 +16,9 @@ import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSocket;
 
-import net.virtualqueues.qboard.controller.NetworkMessage;
-import net.virtualqueues.qboard.controller.responders.Responders;
-import net.virtualqueues.qboard.model.TicketType;
+import net.virtualqueues.controller.Messages;
+import net.virtualqueues.controller.NetworkMessage;
+import net.virtualqueues.model.TicketType;
 
 /**
  * Should we make it singleton?
@@ -77,7 +77,7 @@ class SecureMockServer implements Runnable{
 	}
 	private static void sendNewTicketType() {
 		TicketType tt = new TicketType("the reason", 5, 3);
-		NetworkMessage tobesent = new NetworkMessage(Responders.ADD_TICKET_TYPE, tt);
+		NetworkMessage tobesent = new NetworkMessage(Messages.SEND_TICKET, tt);
 		try {
 			outgoingSerial.writeObject(tobesent);
 		} catch (IOException e) {
@@ -93,8 +93,8 @@ class SecureMockServer implements Runnable{
 	        try {
 				if ((message = incomingSerial.readObject()) != null) {
 					NetworkMessage incomingMessage = (NetworkMessage) message;
-					if(incomingMessage == null || incomingMessage.data == null ||
-							incomingMessage.type == null || incomingMessage.type == ""){
+					if(incomingMessage == null || incomingMessage.getData() == null ||
+							incomingMessage.getType() == null || incomingMessage.getType() == ""){
 						continue;
 					}
 					try {

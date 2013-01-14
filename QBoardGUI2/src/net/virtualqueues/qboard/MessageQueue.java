@@ -2,7 +2,7 @@ package net.virtualqueues.qboard;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
-import net.virtualqueues.qboard.controller.NetworkMessage;
+import net.virtualqueues.controller.NetworkMessage;
 
 public class MessageQueue extends LinkedBlockingQueue<NetworkMessage> {
 	/**

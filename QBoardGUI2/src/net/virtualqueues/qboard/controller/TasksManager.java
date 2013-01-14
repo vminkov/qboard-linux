@@ -2,8 +2,9 @@ package net.virtualqueues.qboard.controller;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.LinkedBlockingQueue;
-
+import net.virtualqueues.controller.MessageParsingException;
+import net.virtualqueues.controller.MessageResponder;
+import net.virtualqueues.controller.NetworkMessage;
 import net.virtualqueues.qboard.MessageQueue;
 import net.virtualqueues.qboard.controller.responders.*;
 
@@ -47,9 +48,9 @@ public class TasksManager implements Runnable {
 	}
 
 	private void parseMessageTask(final NetworkMessage messageTask) throws MessageParsingException {
-		String msgType = messageTask.type;
+		String msgType = messageTask.getType();
 		MessageResponder responder = this.responders.get(msgType);
-		responder.handleMessage(messageTask.data);		
+		responder.handleMessage(messageTask.getData());		
 	}
 
 }

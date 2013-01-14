@@ -1,14 +1,16 @@
 package net.virtualqueues.qboard.controller.responders;
 
 import java.io.Serializable;
-import net.virtualqueues.qboard.controller.responders.Responders;
-import net.virtualqueues.qboard.model.TicketType;
-import net.virtualqueues.qboard.model.TicketsFactory;
+
+import net.virtualqueues.model.TicketType;
+import net.virtualqueues.model.TicketsFactory;
+import net.virtualqueues.controller.MessageResponder;
+import net.virtualqueues.controller.Messages;
 
 public class AddTicketTypeResponder implements MessageResponder {
 	@Override
 	public String getType() {
-		return Responders.ADD_TICKET_TYPE;
+		return Messages.ADD_TICKET_TYPE;
 	}
 
 	@Override

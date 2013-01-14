@@ -2,9 +2,12 @@ package net.virtualqueues.qboard.controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+
+import net.virtualqueues.controller.Messenger;
 
 /**
  * Must be singleton!
@@ -49,6 +52,12 @@ public class NetworkMessenger implements Runnable, Messenger {
 	public void run() {
 		sendGreetings();
 		
+	}
+
+	@Override
+	public boolean sendMessage(String msgType, Serializable data) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }

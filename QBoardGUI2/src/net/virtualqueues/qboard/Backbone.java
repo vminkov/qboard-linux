@@ -16,13 +16,13 @@ public class Backbone {
 	public static void main(String[] args) {
 		ScheduledExecutorService executor = Executors.newScheduledThreadPool(4);
         System.setProperty("java.net.useSystemProxies", "false");	
-        SecureMockServer sms;
 		TasksManager tm = TasksManager.getInstance();
 		
 		executor.scheduleAtFixedRate(tm, 0, 200, TimeUnit.MILLISECONDS);
 		System.out.println("task manager running");	
 				
-		//executor.execute(sms = new SecureMockServer());
+        //SecureMockServer sms;
+        //executor.execute(sms = new SecureMockServer());
         //System.out.println("mock server running");
         
         
